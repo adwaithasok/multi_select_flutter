@@ -129,42 +129,46 @@ class MultiSelectChipDisplay<V> extends StatelessWidget {
   Widget _buildItem(MultiSelectItem<V> item, BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(2.0),
-      child: ChoiceChip(
-        shape: shape as OutlinedBorder?,
-        avatar: icon != null
-            ? Icon(
-                icon!.icon,
-                 icon!.color ?? Theme.of(context).primaryColor,
-              )
-            : null,
-        label: Container(
-          width: chipWidth,
-          child: Text(
-            item.label,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: colorator != null && colorator!(item.value) != null
-                  ? textStyle != null
-                      ? textStyle!.color ?? colorator!(item.value)
-                      : colorator!(item.value)
-                  : textStyle != null && textStyle!.color != null
-                      ? textStyle!.color
-                      : chipColor != null
-                          ? chipColor!.withOpacity(1)
-                          : null,
-              fontSize: textStyle != null ? textStyle!.fontSize : null,
+      child: Container(
+        child: Stack(
+          alignment: AlignmentDirectional.topEnd,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 3.0, right: 2.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: colorator != null && colorator!(item.value) != null
+                        ? colorator!(item.value)
+                        : chipColor != null
+                            ? chipColor
+                            : Theme.of(context).primaryColor.withOpacity(0.33),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: 12.0, left: 10, right: 10, bottom: 12),
+                  child: Text(item.label),
+                ),
+              ),
             ),
-          ),
+            InkWell(
+              onTap: () {
+                if (onTap != null) onTap!(item.value);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.black26,
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                height: 20,
+                width: 20,
+                child: Icon(
+                  Icons.close,
+                  color: Colors.white,
+                  size: 13,
+                ),
+              ),
+            )
+          ],
         ),
-        selected: items!.contains(item),
-        selectedColor: colorator != null && colorator!(item.value) != null
-            ? colorator!(item.value)
-            : chipColor != null
-                ? chipColor
-                : Theme.of(context).primaryColor.withOpacity(0.33),
-        onSelected: (_) {
-          if (onTap != null) onTap!(item.value);
-        },
       ),
     );
   }
