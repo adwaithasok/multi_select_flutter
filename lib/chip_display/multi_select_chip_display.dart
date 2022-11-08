@@ -134,9 +134,7 @@ class MultiSelectChipDisplay<V> extends StatelessWidget {
         avatar: icon != null
             ? Icon(
                 icon!.icon,
-                color: colorator != null && colorator!(item.value) != null
-                    ? colorator!(item.value)!.withOpacity(1)
-                    : icon!.color ?? Theme.of(context).primaryColor,
+                 icon!.color ?? Theme.of(context).primaryColor,
               )
             : null,
         label: Container(
