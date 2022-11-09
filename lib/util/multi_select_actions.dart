@@ -14,8 +14,10 @@ class MultiSelectActions<T> {
   }
 
   /// Pops the dialog from the navigation stack and returns the initially selected values.
-  void onCancelTap(BuildContext ctx, List<T> initiallySelectedValues) {
+  void onCancelTap(BuildContext ctx, List<T> initiallySelectedValues,
+      List<T> selectedValues) {
     Navigator.pop(ctx, initiallySelectedValues);
+    selectedValues.removeWhere((element) => true);
   }
 
   /// Pops the dialog from the navigation stack and returns the selected values.
