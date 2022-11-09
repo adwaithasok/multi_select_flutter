@@ -308,7 +308,7 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
                 ),
               ),
           onPressed: () {
-            widget.onCancelTap(context, widget.initialValue);
+            widget.onCancelTap(context, widget.initialValue, _selectedValues);
           },
         ),
         TextButton(
